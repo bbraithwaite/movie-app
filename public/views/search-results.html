@@ -1,0 +1,29 @@
+<div ng-controller="SearchResultsController">
+  <br>
+  <ol class="breadcrumb">
+    <li><a ng-href="#/">Home</a></li>
+    <li>Results</li>
+    <li class="active">{{ query }}</li>
+  </ol>
+
+  <accordion>
+    <accordion-group ng-repeat="result in results" ng-click="getById($index, result.imdbID)" is-open="result.open">
+      <accordion-heading>
+        {{result.Title}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': result.open, 'glyphicon-chevron-right': !result.open}"></i>
+      </accordion-heading>
+
+      <div class="row">
+        <div class="col-sm-9">
+
+          <p>{{result.plot}}</p>
+          <p><strong>Released:</strong> {{result.released}}</p>
+          <rating ng-model="result.rating" max="10" readonly="true"></rating>
+
+        </div>
+        <div class="col-sm-3"><img ng-src="{{result.poster}}" alt="{{result.Title}}" style="width: 100%" class="img-rounded"></div>
+      </div>
+      
+    </accordion-group>
+  </accordion>
+
+</div>

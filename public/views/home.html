@@ -1,0 +1,15 @@
+<h3>Popular Movies</h3>
+<hr>
+<div class="row">
+<div class="col-sm-4">
+    <img ng-src="{{poster}}" alt="{{title}}" style="width: 100%" class="img-thumbnail">
+  </div>
+  <div class="col-sm-8">
+      <h3>{{title}}</h3>
+      <p>{{plot}}</p>
+      <p><strong>Director:</strong> {{director}}</p>
+      <p><strong>Actors:</strong> {{actors}}</p>
+      <p><strong>Released:</strong> {{released}}</p>
+      <rating ng-model="rating" max="10" readonly="true"></rating>
+  </div>
+</div>

@@ -17,61 +17,65 @@
     [ng\:cloak], [ng-cloak], .ng-cloak {
       display: none;
     }
+
+    .my-animation.ng-enter {
+  /* standard transition code */
+  transition: 1s linear all;
+  opacity:0;
+}
+.my-animation.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  transition-delay: 0.1s;
+
+  /* in case the stagger doesn't work then the duration value
+   must be set to 0 to avoid an accidental CSS inheritance */
+  transition-duration: 0s;
+}
+.my-animation.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity:1;
+}
   </style>
 </head>
 <body>
 
-  <div class="container">
-
-    <div class="page-header">
-      <h1>MovieApp</h1>
-      <p class="lead">Search Movie Data.</p>
-    </div>
-
-    <div ng-controller="SearchController">
-      <form class="form-inline-lg">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." ng-model="query" ng-keyup="search(query)">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Go!</button>
-          </span>
-        </div>
-      </form>
-
-      <hr>
-
-      <div ng-show="results" ng-cloak>
-
-        <h4>Search Results for: <span>{{ query }}</span></h4>
-
-        <accordion>
-          <accordion-group ng-repeat="result in results" ng-click="getById($index, result.imdbID)" is-open="result.open">
-            <accordion-heading>
-              {{result.Title}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': result.open, 'glyphicon-chevron-right': !result.open}"></i>
-            </accordion-heading>
-
-            <div class="row">
-              <div class="col-sm-9">
-
-                <p>{{result.plot}}</p>
-                <p><strong>Released:</strong> {{result.released}}</p>
-                <rating ng-model="result.rating" max="10" readonly="true"></rating>
-
-              </div>
-              <div class="col-sm-3"><img ng-src="{{result.poster}}" alt="{{result.Title}}" style="width: 100%" class="img-rounded"></div>
-            </div>
-            
-          </accordion-group>
-        </accordion>
-
+  <div class="header">
+    <div class="container">
+      <div class="page-header">
+        <h1><a href="#/">MovieApp</a></h1>
+        <p class="lead">Search Movie Data.</p>
       </div>
 
+      <div ng-controller="SearchController">
+        <form class="form-inline-lg" ng-submit="search()">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Film title..." ng-model="query">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="search()">Go!</button>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
+  <div class="container">
+    <div ng-view=""></div>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <div class="container">
+      <p>from bradoncode.com</p>
+    </div>
   </div>
 
   <script type="text/javascript" src="https://code.angularjs.org/1.4.4/angular.min.js"></script>
+  <script type="text/javascript" src="https://code.angularjs.org/1.4.4/angular-route.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
   <script type="text/javascript" src="movie-app.js"></script>
+  <script type="text/javascript" src="services/services.js"></script>
+  <script type="text/javascript" src="controllers/controllers.js"></script>
 </body>
 </html>
