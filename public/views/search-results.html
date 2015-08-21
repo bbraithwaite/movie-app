@@ -13,7 +13,10 @@
       </accordion-heading>
 
       <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-4">
+          <img ng-src="{{result.data.Poster}}" alt="{{result.Title}}" style="max-width: 200px" class="img-thumbnail">
+        </div>
+        <div class="col-sm-8">
 
           <p>{{result.data.Plot}}</p>
           <p><strong>Director:</strong> {{result.data.Director}}</p>
@@ -23,7 +26,6 @@
           <rating ng-model="result.data.imdbRating" max="10" readonly="true"></rating>
 
         </div>
-        <div class="col-sm-3"><img ng-src="{{result.data.Poster}}" alt="{{result.Title}}" style="width: 100%" class="img-rounded"></div>
       </div>
       
     </accordion-group>
