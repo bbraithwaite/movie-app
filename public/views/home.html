@@ -1,8 +1,8 @@
 <h3>Popular Movies</h3>
 <hr>
-<div class="row">
+<div class="row" ng-show="data">
   <div class="col-sm-4">
-    <img src="http://ia.media-imdb.com/images/M/MV5BMTg5NzUwMDU5NF5BMl5BanBnXkFtZTcwMjk2MDA4Mg@@._V1_SX300.jpg" alt="{{data.Title}}" width="220">
+    <img src="{{data.Poster}}" alt="{{data.Title}}" width="220">
   </div>
   <div class="col-sm-8">
       <h3>{{data.Title}}</h3>
