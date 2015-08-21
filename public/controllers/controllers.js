@@ -1,70 +1,66 @@
 angular.module('movieApp')
-  .controller('HomeController', function ($scope, $interval, movieApi) {
-
+  .controller('HomeController', function ($scope, $interval, $timeout, popularMovies, omdbApi) {
     var idx = 0;
-    var ids = ['tt0103064', 'tt0088247', 'tt0181852', 'tt0438488'];
+    var ids;
 
-    movieApi
-      .getById(ids[ids.length - 1])
-      .then(function(data) {
-        $scope.plot = data.Plot;
-        $scope.title = data.Title;
-        $scope.poster = data.Poster;
-        $scope.released = data.Released;
-        $scope.actors = data.Actors;
-        $scope.director = data.Director;
-        $scope.rating = data.imdbRating;
-      });
-
-    $interval(function() {
-      idx++;
-
-      movieApi
-        .getById(ids[idx % ids.length])
+    var getMovieData = function getMovieData(imdbID) {
+      omdbApi.getById(imdbID)
         .then(function(data) {
-          $scope.plot = data.Plot;
-          $scope.title = data.Title;
-          $scope.poster = data.Poster;
-          $scope.released = data.Released;
-          $scope.rating = data.imdbRating;
+          $scope.data = data;
         });
-    }, 5000);
+    };
 
+    popularMovies.get()
+      .then(function(data) {
+        ids = data;
+        getMovieData(ids[ids.length - 1]);
+        $interval(function() {
+          idx++;
+          getMovieData(ids[idx % ids.length]);
+        }, 5000);
+      });
   })
-  .controller('SearchController', function ($scope, $location) {
+  .controller('SearchController', function ($scope, $location, $timeout) {
+    var timeout;
+
+    $scope.keyup = function() {
+      timeout = $timeout(function() {
+        $scope.search();
+      }, 1000);
+    };
+
+    $scope.keydown = function() {
+      $timeout.cancel(timeout);
+    };
+
     $scope.search = function() {
+      $timeout.cancel(timeout);
       if ($scope.query) {
         $location.path('/results').search('q', $scope.query);
       }
     };
   })
-  .controller('SearchResultsController', function ($rootScope, $scope, $location, movieApi) {    
+  .controller('SearchResultsController', function ($rootScope, $scope, $location, omdbApi) {    
     var query = $location.search().q;
 
     $rootScope.query = query;
 
     $scope.getById = function getById(index, imdbID) {
-      movieApi
+      omdbApi
         .getById(imdbID)
         .then(function(data) {
-          $scope.results[index].plot = data.Plot;
-          $scope.results[index].poster = data.Poster;
-          $scope.results[index].released = data.Released;
-          $scope.results[index].rating = data.imdbRating;
+          $scope.results[index].data = data;
           $scope.results[index].open = true;
         });
     };
 
-    if (query && query.length > 2) {
-      movieApi
-      .search(query)
+    omdbApi.search(query)
       .then(function(data) {
         if (data.Search) {
           $scope.getById(0, data.Search[0].imdbID);
           $scope.results = data.Search;
         }
       });
-    }
 
 
 

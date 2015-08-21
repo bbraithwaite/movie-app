@@ -1,6 +1,6 @@
 /* Create Application */
 angular
-  .module('movieApp', ['ngRoute', 'ui.bootstrap'])
+  .module('movieApp', ['ngRoute', 'ngMockE2E', 'ui.bootstrap'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -14,4 +14,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .run(function ($httpBackend) {
+    e2eMocks($httpBackend);
   });

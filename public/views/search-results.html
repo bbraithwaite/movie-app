@@ -1,4 +1,4 @@
-<div ng-controller="SearchResultsController">
+<div>
   <br>
   <ol class="breadcrumb">
     <li><a ng-href="#/">Home</a></li>
@@ -15,12 +15,15 @@
       <div class="row">
         <div class="col-sm-9">
 
-          <p>{{result.plot}}</p>
-          <p><strong>Released:</strong> {{result.released}}</p>
-          <rating ng-model="result.rating" max="10" readonly="true"></rating>
+          <p>{{result.data.Plot}}</p>
+          <p><strong>Director:</strong> {{result.data.Director}}</p>
+          <p><strong>Actors:</strong> {{result.data.Actors}}</p>
+          <p><strong>Released:</strong> {{result.data.Released}} ({{result.data.Released | fromnow}})</p>
+          <p><strong>Genre:</strong> {{result.data.Genre}}</p>
+          <rating ng-model="result.data.imdbRating" max="10" readonly="true"></rating>
 
         </div>
-        <div class="col-sm-3"><img ng-src="{{result.poster}}" alt="{{result.Title}}" style="width: 100%" class="img-rounded"></div>
+        <div class="col-sm-3"><img ng-src="{{result.data.Poster}}" alt="{{result.Title}}" style="width: 100%" class="img-rounded"></div>
       </div>
       
     </accordion-group>

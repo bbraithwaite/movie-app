@@ -1,15 +1,16 @@
 <h3>Popular Movies</h3>
 <hr>
-<div class="row">
-<div class="col-sm-4">
-    <img ng-src="{{poster}}" alt="{{title}}" style="width: 100%" class="img-thumbnail">
+<div class="row" ng-show="data">
+  <div class="col-sm-4">
+    <img ng-src="{{data.Poster}}" alt="{{data.Title}}" style="width: 100%" class="img-thumbnail">
   </div>
   <div class="col-sm-8">
-      <h3>{{title}}</h3>
-      <p>{{plot}}</p>
-      <p><strong>Director:</strong> {{director}}</p>
-      <p><strong>Actors:</strong> {{actors}}</p>
-      <p><strong>Released:</strong> {{released}}</p>
-      <rating ng-model="rating" max="10" readonly="true"></rating>
+      <h3>{{data.Title}}</h3>
+      <p>{{data.Plot}}</p>
+      <p><strong>Director:</strong> {{data.Director}}</p>
+      <p><strong>Actors:</strong> {{data.Actors}}</p>
+      <p><strong>Released:</strong> {{data.Released}}</p>
+      <p><strong>Genre:</strong> {{data.Genre}}</p>
+      <rating ng-model="data.imdbRating" max="10" readonly="true"></rating>
   </div>
 </div>
