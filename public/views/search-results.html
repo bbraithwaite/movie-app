@@ -11,23 +11,7 @@
       <accordion-heading>
         {{result.Title}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': result.open, 'glyphicon-chevron-right': !result.open}"></i>
       </accordion-heading>
-
-      <div class="row">
-        <div class="col-sm-4">
-          <img ng-src="{{result.data.Poster}}" alt="{{result.Title}}" width="220">
-        </div>
-        <div class="col-sm-8">
-
-          <p>{{result.data.Plot}}</p>
-          <p><strong>Director:</strong> {{result.data.Director}}</p>
-          <p><strong>Actors:</strong> {{result.data.Actors}}</p>
-          <p><strong>Released:</strong> {{result.data.Released}} ({{result.data.Released | fromnow}})</p>
-          <p><strong>Genre:</strong> {{result.data.Genre}}</p>
-          <rating ng-model="result.data.imdbRating" max="10" readonly="true"></rating>
-
-        </div>
-      </div>
-      
+      <film-result data="result.data"></film-result>
     </accordion-group>
   </accordion>
 

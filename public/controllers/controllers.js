@@ -1,5 +1,5 @@
 angular.module('movieApp')
-  .controller('HomeController', function ($scope, $interval, $timeout, popularMovies, omdbApi) {
+  .controller('HomeController', function ($scope, $interval, popularMovies, omdbApi) {
     var idx = 0;
     var ids;
 
@@ -15,10 +15,11 @@ angular.module('movieApp')
         ids = data;
         getMovieData(ids[ids.length - 1]);
         $interval(function() {
-          idx++;
           getMovieData(ids[idx % ids.length]);
+          idx++;
         }, 5000);
       });
+      
   })
   .controller('SearchController', function ($scope, $location, $timeout) {
     var timeout;
@@ -39,6 +40,7 @@ angular.module('movieApp')
         $location.path('/results').search('q', $scope.query);
       }
     };
+
   })
   .controller('SearchResultsController', function ($rootScope, $scope, $location, omdbApi) {    
     var query = $location.search().q;
@@ -61,7 +63,5 @@ angular.module('movieApp')
           $scope.results = data.Search;
         }
       });
-
-
 
   });

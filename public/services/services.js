@@ -28,8 +28,8 @@ angular.module('movieApp')
 
     return service;
 
-})
-.factory('popularMovies', function popularMoviesFactory($q, $http) {
+  })
+  .factory('popularMovies', function popularMoviesFactory($q, $http) {
 
     var baseUrl = 'http://localhost:3000/api/movies/popular';
     var service = {};
@@ -51,3 +51,5 @@ angular.module('movieApp')
     return service;
   
 });
+
+  
