@@ -2,7 +2,7 @@ angular.module('movieApp')
 .filter('fromnow', function fromNowFilter() {
   return function fromNowFilter(value, baseDate) {
 
-    if (!value) return '';
+    if (!value) { throw 'date value cannot be undefined'; }
 
     var date = value;
 

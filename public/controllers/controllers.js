@@ -1,11 +1,13 @@
 angular.module('movieApp')
-  .controller('HomeController', function ($scope, $interval, popularMovies, omdbApi) {
+  .controller('HomeController', function ($scope, $interval, popularMovies, omdbApi, $log) {
     var idx = 0;
     var ids;
 
     var getMovieData = function getMovieData(imdbID) {
+      $log.log('calling movie data for: ' + imdbID);
       omdbApi.getById(imdbID)
         .then(function(data) {
+          $log.log('data from omdbApi.getById: ' + JSON.stringify(data));
           $scope.data = data;
         });
     };
@@ -13,6 +15,7 @@ angular.module('movieApp')
     popularMovies.get()
       .then(function(data) {
         ids = data;
+        $log.log('data from popular movies: ' + data);
         getMovieData(ids[ids.length - 1]);
         $interval(function() {
           getMovieData(ids[idx % ids.length]);

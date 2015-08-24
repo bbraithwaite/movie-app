@@ -8,9 +8,13 @@ describe('Filters: fromnow', function() {
     fromnow = _$filter_('fromnow');
   }));
 
-  it('should return same value for invalid date', function() {
+  it('should return same valxue for invalid date', function() {
     expect(fromnow('foo')).toBe('foo');
   });  
+
+  it('should return throw error for undefined', function() {
+    expect(fromnow).toThrow('date value cannot be undefined');
+  });
 
   it('should return value for date object', function() {
     var value = new Date('1-Jan-2015');
